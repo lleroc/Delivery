@@ -11,6 +11,9 @@ export const RegisterViewModel = () => {
     const onChange = (propiedad: string, value:any)=>{
         setValues({ ...values, [propiedad]:value})
     }
-    return {...values, onChange}
+    const register = ()=>{
+        alert(JSON.stringify(values))
+    }
+    return {...values, onChange, register}
 }
 export default RegisterViewModel;
