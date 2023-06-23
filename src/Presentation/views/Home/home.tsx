@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -19,8 +18,15 @@ import usuViewModel from "./ViewModel";
 import { TextInputPersonalizado } from "../../components/TextInputPersonalizado";
 
 export const HomeScreen = () => {
-  const { email, password, onChange } = usuViewModel();
+  const { email, password, errorMessage, onChange, login } = usuViewModel();
   const navegacion = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+useEffect(()=>{
+  if(errorMessage !== ' '){
+    alert(errorMessage);
+  }
+}, [errorMessage]);
+
   return (
     <View style={styles.container}>
       <Image
@@ -59,8 +65,7 @@ export const HomeScreen = () => {
           <BotonRedondeado
             text="Ingresar"
             onPress={() => {
-              console.log(email);
-              console.log(password);
+             login();
             }}
           />
         </View>

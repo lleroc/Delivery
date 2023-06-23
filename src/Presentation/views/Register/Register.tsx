@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Image,
+  ScrollView,
+  ToastAndroid,
 } from "react-native";
 import { MyColors } from "../../theme/AppTheme";
 import { BotonRedondeado } from "../../components/BotonRedondeado";
@@ -17,8 +19,18 @@ export const RegisterScreen = () => {
     email,
     password,
     repeatPassword,
-    onChange, register
+    errorMessage,
+    onChange,
+    register,
   } = usuViewModel();
+
+  useEffect(() => {
+    if (errorMessage !== "") {
+      //ToastAndroid.show(errorMessage, ToastAndroid.LONG);
+      alert(errorMessage);
+    }
+  }, [errorMessage]);
+
   return (
     <View style={styles.container}>
       <Image
@@ -33,66 +45,62 @@ export const RegisterScreen = () => {
         <Text style={styles.logoText}>Seleccione una imagen</Text>
       </View>
       <View style={styles.form}>
-        <Text style={styles.formText}>Ingresar</Text>
-
-        <TextInputPersonalizado
-          image={require("../../../../assets/user.png")}
-          placeholder="Nombres"
-          keybordType="default"
-          property="Nombres"
-          onChangeText={onChange}
-          value={Nombres}
-        />
-        <TextInputPersonalizado
-          image={require("../../../../assets/my_user.png")}
-          placeholder="Apellidos"
-          keybordType="default"
-          property="Apellidos"
-          onChangeText={onChange}
-          value={Apellidos}
-        />
-        <TextInputPersonalizado
-          image={require("../../../../assets/email.png")}
-          placeholder="Correo Electrónico"
-          keybordType="default"
-          property="email"
-          onChangeText={onChange}
-          value={email}
-        />
-        <TextInputPersonalizado
-          image={require("../../../../assets/phone.png")}
-          placeholder="Telefono"
-          keybordType="default"
-          property="Telefono"
-          onChangeText={onChange}
-          value={Telefono}
-        />
-        <TextInputPersonalizado
-          image={require("../../../../assets/password.png")}
-          placeholder="Contraseña"
-          keybordType="default"
-          property="password"
-          onChangeText={onChange}
-          value={password}
-          secureTextEntry={true}
-        />
-
-        <TextInputPersonalizado
-          image={require("../../../../assets/confirm_password.png")}
-          placeholder="Repita la Contraseña"
-          keybordType="default"
-          property="repeatPassword"
-          onChangeText={onChange}
-          value={repeatPassword}
-          secureTextEntry={true}
-        />
-
-        <View style={{ marginTop: 30 }}>
-          <BotonRedondeado
-            text="Ingresar"
-            onPress={() => register()}
+        <ScrollView>
+          <Text style={styles.formText}>Ingresar</Text>
+          <TextInputPersonalizado
+            image={require("../../../../assets/user.png")}
+            placeholder="Nombres"
+            keybordType="default"
+            property="Nombres"
+            onChangeText={onChange}
+            value={Nombres}
           />
-        </View>
+          <TextInputPersonalizado
+            image={require("../../../../assets/my_user.png")}
+            placeholder="Apellidos"
+            keybordType="default"
+            property="Apellidos"
+            onChangeText={onChange}
+            value={Apellidos}
+          />
+          <TextInputPersonalizado
+            image={require("../../../../assets/email.png")}
+            placeholder="Correo Electrónico"
+            keybordType="default"
+            property="email"
+            onChangeText={onChange}
+            value={email}
+          />
+          <TextInputPersonalizado
+            image={require("../../../../assets/phone.png")}
+            placeholder="Telefono"
+            keybordType="default"
+            property="Telefono"
+            onChangeText={onChange}
+            value={Telefono}
+          />
+          <TextInputPersonalizado
+            image={require("../../../../assets/password.png")}
+            placeholder="Contraseña"
+            keybordType="default"
+            property="password"
+            onChangeText={onChange}
+            value={password}
+            secureTextEntry={true}
+          />
+          <TextInputPersonalizado
+            image={require("../../../../assets/confirm_password.png")}
+            placeholder="Repita la Contraseña"
+            keybordType="default"
+            property="repeatPassword"
+            onChangeText={onChange}
+            value={repeatPassword}
+            secureTextEntry={true}
+          />
+          <View style={{ marginTop: 30 }}>
+            <BotonRedondeado text="Ingresar" onPress={() => register()} />
+          </View>
+        </ScrollView>
       </View>
     </View>
   );
